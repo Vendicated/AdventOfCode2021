@@ -12,7 +12,7 @@ func Init(day, part int) ([]string, func(s interface{})) {
 	fullDay := "day" + strconv.Itoa(day)
 	fullPart := "part" + strconv.Itoa(part)
 	return GetInputLines(fullDay), func(s interface{}) {
-		file, err := os.OpenFile(filepath.Join(Unwraps(os.Getwd()), fullDay, fullPart+"-solution.txt"), os.O_CREATE|os.O_WRONLY, 0644)
+		file, err := os.OpenFile(filepath.Join(Unwraps(os.Getwd()), fullDay, fullPart+"-solution.txt"), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 		Check(err)
 		CheckPair(fmt.Fprint(file, s))
 		fmt.Println(s)
