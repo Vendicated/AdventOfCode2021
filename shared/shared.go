@@ -2,6 +2,7 @@ package shared
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -74,4 +75,36 @@ func GetInput(day string) string {
 
 func GetInputLines(day string) []string {
 	return strings.Split(GetInput(day), "\n")
+}
+
+func GetNumbers(s, separator string) []int {
+	split := strings.Split(s, separator)
+	nums := make([]int, len(split))
+	for i, num := range split {
+		nums[i] = Atoi(num)
+	}
+	return nums
+}
+
+func GetMinAndMax(nums []int) (int, int) {
+	if len(nums) == 0 {
+		return 0, 0
+	}
+	min, max := math.MaxInt, math.MinInt
+	for _, n := range nums {
+		if n < min {
+			min = n
+		}
+		if n > max {
+			max = n
+		}
+	}
+	return min, max
+}
+
+func Abs(x int) int {
+	if x < 0 {
+		return -x
+	}
+	return x
 }
