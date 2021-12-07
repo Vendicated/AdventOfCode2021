@@ -8,15 +8,25 @@ import (
 	"strings"
 )
 
-func Init(day, part int) ([]string, func(s interface{})) {
-	fullDay := "day" + strconv.Itoa(day)
-	fullPart := "part" + strconv.Itoa(part)
-	return GetInputLines(fullDay), func(s interface{}) {
-		file, err := os.OpenFile(filepath.Join(Unwraps(os.Getwd()), fullDay, fullPart+"-solution.txt"), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+func makeSaveFunc(day, part string) func(s interface{}) {
+	return func(s interface{}) {
+		file, err := os.OpenFile(filepath.Join(Unwraps(os.Getwd()), day, part+"-solution.txt"), os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 		Check(err)
 		CheckPair(fmt.Fprint(file, s))
 		fmt.Println(s)
 	}
+}
+
+func Init(day, part int) ([]string, func(s interface{})) {
+	fullDay := "day" + strconv.Itoa(day)
+	fullPart := "part" + strconv.Itoa(part)
+	return GetInputLines(fullDay), makeSaveFunc(fullDay, fullPart)
+}
+
+func InitNoSplit(day, part int) (string, func(s interface{})) {
+	fullDay := "day" + strconv.Itoa(day)
+	fullPart := "part" + strconv.Itoa(part)
+	return GetInput(fullDay), makeSaveFunc(fullDay, fullPart)
 }
 
 func CheckPair(ret interface{}, e error) {
