@@ -9,38 +9,28 @@ import (
 func main() {
 	input, solve := shared.InitNoSplit(6, 2)
 
-	fishMap := map[int]int{ // obsolete and same as make(map[int]int, 9), but this makes it clearer what is being done here.
-		0: 0,
-		1: 0,
-		2: 0,
-		3: 0,
-		4: 0,
-		5: 0,
-		6: 0,
-		7: 0,
-		8: 0,
-	}
+	fishCountPerTimer := make([]int, 9) // Array where the element at each index is the amount of fish whose timer == index
 
 	{
 		split := strings.Split(input, ",")
 		for _, s := range split {
-			fishMap[shared.Atoi(s)]++
+			fishCountPerTimer[shared.Atoi(s)]++
 		}
 	}
 
 	for count := 0; count < 256; count++ {
-		newFish := fishMap[0]
+		newFish := fishCountPerTimer[0]
 
 		for i := 0; i < 8; i++ {
-			fishMap[i] = fishMap[i + 1]
+			fishCountPerTimer[i] = fishCountPerTimer[i+1]
 		}
-		fishMap[6] += newFish
-		fishMap[8] = newFish
+		fishCountPerTimer[6] += newFish
+		fishCountPerTimer[8] = newFish
 	}
 
 	result := 0
 	for i := 0; i < 9; i++ {
-		result += fishMap[i]
+		result += fishCountPerTimer[i]
 	}
 
 	solve(result)
