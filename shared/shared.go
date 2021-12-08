@@ -69,6 +69,20 @@ func Atoi(str string) int {
 	return Unwrapi(strconv.Atoi(str))
 }
 
+func StringContains(str string, char int32) bool {
+	for _, c := range str {
+		if c == char {
+			return true
+		}
+	}
+	return false
+}
+
+func Partition(s, separator string) (string, string) {
+	split := strings.Split(s, separator)
+	return split[0], split[1]
+}
+
 func GetInput(day string) string {
 	return strings.TrimSpace(Unwrapb(os.ReadFile(filepath.Join(Unwraps(os.Getwd()), day, "input.txt"))))
 }
