@@ -91,6 +91,14 @@ func GetInputLines(day string) []string {
 	return strings.Split(GetInput(day), "\n")
 }
 
+func GetAs2dArray(lines []string) [][]int {
+	arr := make([][]int, len(lines))
+	for i, line := range lines {
+		arr[i] = GetNumbers(line, "")
+	}
+	return arr
+}
+
 func GetNumbers(s, separator string) []int {
 	split := strings.Split(s, separator)
 	nums := make([]int, len(split))
