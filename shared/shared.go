@@ -99,6 +99,20 @@ func GetAs2dArray(lines []string) [][]int {
 	return arr
 }
 
+func GetLeftAndRight(s, sep string) (string, string) {
+	split := strings.Split(s, sep)
+	Assert(len(split) == 2, "Not len 2")
+	return split[0], split[1]
+}
+
+func IsUpper(s string) bool {
+	return strings.ToUpper(s) == s
+}
+
+func IsLower(s string) bool {
+	return strings.ToLower(s) == s
+}
+
 func GetNumbers(s, separator string) []int {
 	split := strings.Split(s, separator)
 	nums := make([]int, len(split))
